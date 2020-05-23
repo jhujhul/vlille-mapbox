@@ -5,13 +5,97 @@
     <title>Parcel and Tailwind CSS working together</title>
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+      content="initial-scale=1,maximum-scale=1,user-scalable=no"
     />
     <link rel="stylesheet" type="text/css" href="index.pcss" />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js"></script>
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <style>
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
   </head>
-  <body>
-    <h1 class="text-purple-600 text-center text-2xl p-4">
-      Hello Tailwind CSS!!
-    </h1>
+  <body class="m-0 p-0">
+    <div id="map"></div>
+    <script>
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoiamhzZGZ1bCIsImEiOiJja2FpbWEwbHgwMjNxMnlqdXl6YWJpM3doIn0.BMQZsqR7ON4cNjjVOdgRDg";
+      const map = new mapboxgl.Map({
+        container: "map",
+        style: "mapbox://styles/mapbox/streets-v11",
+        center: [3.065183, 50.637522],
+        zoom: 16,
+      });
+
+      map.addControl(
+        new mapboxgl.GeolocateControl({
+          trackUserLocation: true,
+        })
+      );
+
+      fetchAllStations().then(addMarkers);
+
+      function fetchAllStations() {
+        const API_VLILLE_BASEURL =
+          "https://opendata.lillemetropole.fr/api/records/1.0/search/?dataset=vlille-realtime";
+        const url = API_VLILLE_BASEURL + "&rows=300";
+
+        return fetch(url)
+          .then((res) => res.json())
+          .then((data) =>
+            data.records.map((record) => {
+              record.fields.geo = record.geometry.coordinates;
+              return record.fields;
+            })
+          );
+      }
+
+      function addMarkers(stations) {
+        const TAILWIND_RED_700 = "#C53030";
+        console.log("stations", stations);
+
+        stations.forEach((station) => {
+          const popup = new mapboxgl.Popup().setHTML(getPopupHTML(station));
+
+          new mapboxgl.Marker({ color: TAILWIND_RED_700 })
+            .setLngLat(station.geo)
+            .setPopup(popup)
+            .addTo(map);
+        });
+      }
+
+      function getPopupHTML(station) {
+        const estEnService = station.etat === "EN SERVICE";
+        const classEtat = estEnService
+          ? "text-green-500"
+          : "text-red-600 font-bold";
+
+        return `
+          <div class="leading-tight">
+            <h3 class="text-sm text-red-700">${station.nom}</h3>
+            <div class="mb-2">
+              <span class="${classEtat}">${station.etat.toLowerCase()}</span>
+            </div>
+            <div>
+              ${
+                station.nbvelosdispo
+              } <span class="font-bold">vélos</span> disponibles
+            </div>
+            <div>
+              ${
+                station.nbplacesdispo
+              } <span class="font-bold">places</span> disponibles
+            </div>
+          <div>
+        `;
+      }
+    </script>
   </body>
 </html>
