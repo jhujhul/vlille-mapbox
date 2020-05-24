@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A starter project using Parcel and Tailwind CSS",
   "scripts": {
-    "start": "parcel src/index.html --https",
+    "start": "parcel src/index.html --https --global Main",
     "build": "parcel build src/index.html"
   },
   "repository": {
