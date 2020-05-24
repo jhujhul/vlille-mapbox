@@ -7,8 +7,7 @@ initializeMap();
 displayStationsMarkers();
 
 function initializeMap() {
-  mapboxgl.accessToken =
-    "pk.eyJ1IjoiamhzZGZ1bCIsImEiOiJja2FpbWEwbHgwMjNxMnlqdXl6YWJpM3doIn0.BMQZsqR7ON4cNjjVOdgRDg";
+  mapboxgl.accessToken = process.env.MAPBOX_ACCESS_TOKEN;
   map = new mapboxgl.Map({
     container: "map",
     style: "mapbox://styles/mapbox/streets-v11",
