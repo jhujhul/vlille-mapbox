@@ -4,7 +4,7 @@
   "description": "A starter project using Parcel and Tailwind CSS",
   "scripts": {
     "start": "parcel src/index.html --https --global Main",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html --global Main"
   },
   "repository": {
     "type": "git",

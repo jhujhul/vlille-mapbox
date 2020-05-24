@@ -1,9 +1,4 @@
-#map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-}
+/* purgecss start ignore */
 .mapboxgl-popup-close-button {
   font-size: 1.25rem;
 }
@@ -13,6 +8,15 @@
 .mapboxgl-marker {
   cursor: pointer;
 }
+/* purgecss end ignore */
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
 /* borrowed from https://codepen.io/mandelid/pen/vwKoe */
 #spinner {
   position: absolute;
