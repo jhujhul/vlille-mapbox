@@ -1,19 +1,3 @@
-# parcel-tailwind-starter
+# [www.stations-vlille.fr](https://www.stations-vlille.fr)
 
-A starter project using [Parcel](https://parceljs.org) and [Tailwind CSS](https://tailwindcss.com).
-
-## Start a local web server
-
-```sh
-npm start
-```
-
-It will start a local web server. You can use Tailwind classes.
-
-## Build your code
-
-```sh
-npm run build
-```
-
-It will build your code in production mode. It will remove unused css classes from Tailwind by using Purgecss, keeping your CSS file size low.
+Built with open data from [opendata.lillemetropole.fr](https://opendata.lillemetropole.fr/explore/dataset/vlille-realtime/information/?flg=fr) and with the [Mapbox library](https://docs.mapbox.com/mapbox-gl-js/overview/).
