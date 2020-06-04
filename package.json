@@ -4,7 +4,7 @@
   "description": "The repository of https://www.stations-vlille.fr",
   "scripts": {
     "start": "parcel src/index.html --https --global Main",
-    "build": "parcel build src/index.html --global Main"
+    "build": "parcel build src/index.html --global Main && cp _redirects dist/"
   },
   "repository": {
     "type": "git",
